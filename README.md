@@ -1,1 +1,0 @@
-# rickBucket.github.io
