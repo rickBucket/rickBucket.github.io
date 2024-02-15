@@ -21,8 +21,8 @@ const schema = {
   PageWrapper,
   fullName: 'Ricky Zhao',
   menu: {
-    'Photography': '/photography',
-    'About Me': '/aboutme',
+    'Photography': '/#/photography',
+    'About Me': '/#/aboutme',
   },
 };
 

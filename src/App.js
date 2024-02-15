@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import {
-  BrowserRouter,
+  HashRouter,
   Routes,
   Route,
 } from 'react-router-dom';
@@ -30,7 +30,7 @@ const App = () => {
   };
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <schema.GlobalStyle />
       <Overlay onClick={() => setMenuActive(false)} />
       <Backdrop style={{background: backgroundColor}} />
@@ -43,11 +43,11 @@ const App = () => {
         setVisibility={(val) => setMenuActive(val)}
       />
       <Routes>
+        <Route path="/" element={<Photography />} />
         <Route path="/photography" element={<Photography />} />
         <Route path="/aboutme" element={<AboutMe />} />
-        <Route path="/" element={<Photography />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
