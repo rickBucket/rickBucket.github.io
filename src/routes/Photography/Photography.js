@@ -31,7 +31,7 @@ const GalleryWrapper = styled.div`
   // border: solid;
   transition: width 0.5s ease;
   @media (max-width: 600px) {
-    width: calc(100vw - 16px);
+    width: 100vw;
     margin: 0px;
   }
 `;
