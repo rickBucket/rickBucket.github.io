@@ -1,7 +1,7 @@
 {
   "name": "my-app",
   "version": "0.1.0",
-  "homepage": "/rickbucket.github.io/#",
+  "homepage": "./",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.3",
