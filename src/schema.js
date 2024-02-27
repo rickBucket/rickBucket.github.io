@@ -24,6 +24,7 @@ const schema = {
     'Photography': '/#/photography',
     'About Me': '/#/aboutme',
   },
+  'photo_margin': 4,
 };
 
 export default schema;

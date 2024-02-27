@@ -1,27 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// import schema from '../../schema.js';
+import schema from '../../schema.js';
 import photobase from './photobase.js';
 
-const Photo = ({ id }) => {
+const Photo = ({ id, widthRatio, rowLength }) => {
 
   return (
     <Image
       src={photobase[id].img_src}
-      width={photobase[id].width/4}
-      height={photobase[id].height/4}
+      $ratio={widthRatio}
       alt={id}
     />
   );
 }
 
 const Image = styled.img`
-  float: left;
-  margin: 4px;
+  margin: ${schema.photo_margin}px;
+  width: calc(${props => props.$ratio * 100}% - ${2 * schema.photo_margin}px);
   height: auto;
   @media (max-width: 600px) {
-    width: calc(100% - 8px);
+    width: calc(100% - ${2 * schema.photo_margin}px);
+    height: auto;
   }
 `;
 

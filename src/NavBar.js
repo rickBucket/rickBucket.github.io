@@ -19,7 +19,7 @@ const NavBar = ({ hideMenu, toggleMenu }) => {
 
   return (
     <NavBarWrapper onClick={handleClick}>
-      <ProfilePic size={48} src="./profile.jpg" alt="Profile pic of me"/>
+      <ProfilePic $size={48} src="./profile.jpg" alt="Profile pic of me"/>
       <Title>{ schema.fullName }</Title>
       <MenuButton onClick={(e) => toggleMenu(e.stopPropagation())}><MenuIcon /></MenuButton>
     </NavBarWrapper>
@@ -63,8 +63,8 @@ const ProfilePic = styled.img`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: ${props => props.size}px;
-  width: ${props => props.size}px;
+  height: ${props => props.$size}px;
+  width: ${props => props.$size}px;
   padding: auto;
   margin: 4px;
   border-radius: 50%;
