@@ -35,10 +35,10 @@ const NavBarWrapper = styled.div`
   height: 56px;
   width: 100%;
   min-width: 320px;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  // filter: drop-shadow(0px -4px 32px #222);
+  background: rgba(22,22,23,0.8);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  // filter: saturate(200%);
   z-index: 5;
 `;
 
@@ -77,9 +77,10 @@ const Title = styled.h2`
   justify-content: center;
   margin: 0 auto;
   width: 192px;
-  color: rgba(256, 256, 256, 0.8);
+  color: rgba(256, 256, 256, 0.9);
   cursor: default;
   user-select: none;
+  text-shadow: 0px 0px 5px rgba(0,0,0,0.5);
 `;
 
 export default NavBar;

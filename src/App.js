@@ -15,25 +15,12 @@ import './App.css';
 
 const App = () => {
   const [menuActive, setMenuActive] = useState(false);
-  const [backgroundColor, setBackgroundColor] = useState('hsl(0, 25%, 75%)');
-
-  // TODO: Replace with more efficient technique
-  useEffect(() => {
-    // window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', handleScroll, { passive: true });
-    }
-  }, []);
-
-  const handleScroll = () => {
-    setBackgroundColor(`hsl(${window.pageYOffset / 2 % 360}, 25%, 75%)`);
-  };
 
   return (
     <HashRouter>
       <schema.GlobalStyle />
       <Overlay onClick={() => setMenuActive(false)} />
-      <Backdrop style={{background: backgroundColor}} />
+      <Backdrop />
       <NavBar
         hideMenu={() => setMenuActive(false)}
         toggleMenu={() => setMenuActive(!menuActive)}
@@ -63,6 +50,7 @@ const Backdrop = styled.div`
   position: fixed;
   height: 100%;
   width: 100%;
+  background-color: #fbfbfd;
   z-index: -1;
   transition: background 0.5s ease;
 `;

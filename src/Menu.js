@@ -30,7 +30,7 @@ const MenuWrapper = styled.div`
   backdrop-filter: blur(32px);
   -webkit-backdrop-filter: blur(32px);
   visibility: ${props => props.$vis ? 'visible' : 'hidden'};
-  z-index: 4;
+  z-index: 5;
 `;
 
 const MenuItem = styled.button`
