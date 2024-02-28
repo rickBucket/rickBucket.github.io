@@ -14,10 +14,12 @@ const Photography = () => {
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     window.addEventListener("orientationchange", handleResize);
+    screen.orientation.addEventListener("change", handleResize);
     handleResize();
     return () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("orientationchange", handleResize);
+      screen.orientation.removeEventListener("change", handleResize);
     }
   }, []);
 
