@@ -103,10 +103,7 @@ const Photography = () => {
     <PageWrapper>
       <GalleryWrapper>
         {
-          formattedPhotoCollection([
-            ...photobase.ids.pets,
-            ...photobase.ids.wildlife,
-          ]).map((photo) => (
+          formattedPhotoCollection(photobase.ids.portraits).map((photo) => (
             <Photo
               id={photo[0]}
               key={photo[0]}
