@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import schema from '../../schema.js';
 import photobase from './photobase.js';
 
-const Photo = ({ id, widthRatio, rowLength }) => {
+const Photo = ({ id, widthRatio }) => {
 
   return (
     <Image
@@ -15,14 +15,18 @@ const Photo = ({ id, widthRatio, rowLength }) => {
   );
 }
 
-const Image = styled.img`
-  margin: ${schema.photo_margin}px;
-  width: calc(${props => props.$ratio * 100}% - ${2 * schema.photo_margin}px);
+
+const Image = styled.img.attrs(
+  ({ $ratio }) => ({
+    style: {
+      width: `calc(${100 * $ratio}%)`,
+    }
+  })
+)`
+  margin: ${schema.photo_margin/2}px ${schema.photo_margin}px;
   height: auto;
-  @media (max-width: 600px) {
-    width: calc(100% - ${2 * schema.photo_margin}px);
-    height: auto;
-  }
+  transition: width 0.2s ease;
+  border-radius: ${schema.photo_margin}px;
 `;
 
 export default Photo;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import Photo from './Photo.js';
@@ -7,17 +7,30 @@ import schema from '../../schema.js';
 
 const PageWrapper = schema.PageWrapper;
 
-const MAX_ROW_VALUE = 7;
-
 const Photography = () => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [maxRowValue, setMaxRowValue] = useState(2);
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowWidth(window.innerWidth);
+      if (window.innerWidth > 1200) setMaxRowValue(9);
+      else if (window.innerWidth > 900) setMaxRowValue(7);
+      else if (window.innerWidth > 600) setMaxRowValue(5);
+      else setMaxRowValue(3);
+    }
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   /* Gets height and width of photos using the ids array
-   * Calculates dimensions for best fit (row height, % width)
+   * Calculates % width for best fit
    * Row Weights:
    *    [Horizontal / Lanscape] = 2
    *    [Vertical / Portraits] = 1
    *    Maximum row weight = MAX_ROW_VALUE
-   * @return: Array<Array[id, widthRatio, rowLength]>
+   * @return: Array<Array[id, widthRatio]>
    */
   let formattedPhotoCollection = (ids) => {
     let finalArray = [];
@@ -28,7 +41,7 @@ const Photography = () => {
       const height = photobase[id].height;
       const width = photobase[id].width;
       const counterIncrement = width > height ? 2 : 1;
-      if (counter + counterIncrement > MAX_ROW_VALUE) {
+      if (counter + counterIncrement > maxRowValue) {
         finalArray = [
           ...finalArray,
           ...calculateRowDimensions(tempArray, rowMaxHeight),
@@ -37,7 +50,7 @@ const Photography = () => {
         rowMaxHeight = 0;
         counter = 0;
       }
-      tempArray.push([id, height, width]);
+      tempArray.push([id, width/height]);
       rowMaxHeight = height > rowMaxHeight ? height : rowMaxHeight;
       counter += counterIncrement;
     });
@@ -53,24 +66,27 @@ const Photography = () => {
   }
 
   /* Helper function to calculate the dimensions of photos in a row
-   * @param: Array<Array[id, height, width]> // original dimensions
-   * @return: Array<Array[id, widthRatio, rowLength]> // formatted dimensions
+   * Compensate for margins affecting different aspect ratios differently
+   * @param:
+   *    Array<Array[id, aspectRatio<width/height>]>
+   *    number: maxinum height of photos in array
+   * @return: Array<Array[id, widthRatio]>
    */
-  let calculateRowDimensions = (photos, maxHeight) => {
+  let calculateRowDimensions = (photos) => {
+    const totalMargins = 2 * schema.photo_margin * photos.length;
+    const containerWidth = 0.9 * windowWidth;
     let result = [];
-    // Compensate for margins affecting different aspect ratios differently
-    const marginScaleFactor = 2 * schema.photo_margin * MAX_ROW_VALUE;
-    let totalWidth = marginScaleFactor * photos.length;
+    let aspectSum = 0;
 
-    // Unify height then divide the width into the photos
     photos.forEach((photo) => {
-      totalWidth += photo[2] * maxHeight / photo[1];
+      aspectSum += photo[1];
     });
+    const height = (containerWidth - totalMargins)/aspectSum;
+
     photos.forEach((photo) => {
       result.push([
         photo[0],
-        (photo[2] * maxHeight / photo[1] + marginScaleFactor) / totalWidth,
-        photos.length
+        (height * photo[1]) / containerWidth,
       ]);
     })
     return result;
@@ -96,16 +112,16 @@ const Photography = () => {
 
 const GalleryWrapper = styled.div`
   justify-content: space-between;
-  width: 85vw;
+  width: 90vw;
   overflow: auto;
   margin: auto;
   padding: auto;
   // border: solid;
-  transition: width 0.25s ease;
-  @media (max-width: 600px) {
-    width: 100vw;
-    margin: 0px;
-  }
+  transition: width 0.2s ease;
+  // @media (max-width: 600px) {
+  //   width: 100vw;
+  //   margin: 0px;
+  // }
 `;
 
 export default Photography;

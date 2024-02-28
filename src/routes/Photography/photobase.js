@@ -35,7 +35,7 @@ const photobase = {
   'event6': {
     img_src: "https://live.staticflickr.com/65535/53528404230_7366c37535_k.jpg",
     height: 2048,
-    width: 1546,
+    width: 1536,
   },
   'event7': {
     img_src: "https://live.staticflickr.com/65535/53528404005_5cc200b8d6_k.jpg",
