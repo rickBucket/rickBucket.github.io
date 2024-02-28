@@ -12,17 +12,22 @@ const Photography = () => {
   const [maxRowValue, setMaxRowValue] = useState(2);
 
   useEffect(() => {
-    function handleResize() {
-      setWindowWidth(window.innerWidth);
-      if (window.innerWidth > 1200) setMaxRowValue(9);
-      else if (window.innerWidth > 900) setMaxRowValue(7);
-      else if (window.innerWidth > 600) setMaxRowValue(5);
-      else setMaxRowValue(3);
-    }
     window.addEventListener("resize", handleResize);
+    window.addEventListener("orientationchange", handleResize);
     handleResize();
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("orientationchange", handleResize);
+    }
   }, []);
+
+  let handleResize = () => {
+    setWindowWidth(window.innerWidth);
+    if (window.innerWidth > 1200) setMaxRowValue(9);
+    else if (window.innerWidth > 900) setMaxRowValue(7);
+    else if (window.innerWidth > 600) setMaxRowValue(5);
+    else setMaxRowValue(3);
+  };
 
   /* Gets height and width of photos using the ids array
    * Calculates % width for best fit
@@ -96,7 +101,10 @@ const Photography = () => {
     <PageWrapper>
       <GalleryWrapper>
         {
-          formattedPhotoCollection(photobase.ids.portraits).map((photo) => (
+          formattedPhotoCollection([
+            ...photobase.ids.pets,
+            ...photobase.ids.wildlife,
+          ]).map((photo) => (
             <Photo
               id={photo[0]}
               key={photo[0]}
