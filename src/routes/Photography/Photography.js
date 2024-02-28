@@ -13,15 +13,22 @@ const Photography = () => {
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
-    window.addEventListener("orientationchange", handleResize);
-    screen.orientation.addEventListener("change", handleResize);
+    window.addEventListener("orientationchange", handleOrientation);
+    screen.orientation.addEventListener("change", handleOrientation);
     handleResize();
     return () => {
       window.removeEventListener("resize", handleResize);
-      window.removeEventListener("orientationchange", handleResize);
-      screen.orientation.removeEventListener("change", handleResize);
+      window.removeEventListener("orientationchange", handleOrientation);
+      screen.orientation.removeEventListener("change", handleOrientation);
     }
   }, []);
+
+  let handleOrientation = (prevWidth) => {
+    if (prevWidth !== window.innerWidth) {
+      setTimeout(handleOrientation, 400, window.innerWidth);
+    }
+    handleResize();
+  }
 
   let handleResize = () => {
     setWindowWidth(window.innerWidth);
@@ -42,7 +49,6 @@ const Photography = () => {
   let formattedPhotoCollection = (ids) => {
     let finalArray = [];
     let tempArray = [];
-    let rowMaxHeight = 0;
     let counter = 0;
     ids.forEach((id) => {
       const height = photobase[id].height;
@@ -51,21 +57,19 @@ const Photography = () => {
       if (counter + counterIncrement > maxRowValue) {
         finalArray = [
           ...finalArray,
-          ...calculateRowDimensions(tempArray, rowMaxHeight),
+          ...calculateRowDimensions(tempArray),
         ];
         tempArray = [];
-        rowMaxHeight = 0;
         counter = 0;
       }
       tempArray.push([id, width/height]);
-      rowMaxHeight = height > rowMaxHeight ? height : rowMaxHeight;
       counter += counterIncrement;
     });
 
     if (tempArray.length > 0) {
       finalArray = [
         ...finalArray,
-        ...calculateRowDimensions(tempArray, rowMaxHeight),
+        ...calculateRowDimensions(tempArray),
       ];
     }
 
