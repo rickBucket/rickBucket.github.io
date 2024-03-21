@@ -24,6 +24,7 @@ const schema = {
     'Photography': '/#/photography',
     'About Me': '/#/aboutme',
   },
+  'navBarHeight': 56,
   'photo_margin': 4,
 };
 

@@ -19,7 +19,9 @@ const App = () => {
   return (
     <HashRouter>
       <schema.GlobalStyle />
-      <Overlay onClick={() => setMenuActive(false)} />
+      {menuActive &&
+        <Overlay onClick={() => setMenuActive(false)} />
+      }
       <Backdrop />
       <NavBar
         hideMenu={() => setMenuActive(false)}
@@ -43,7 +45,7 @@ const Overlay = styled.div`
   position: fixed;
   height: 100%;
   width: 100%;
-  z-index: 2;
+  z-index: 3;
 `;
 
 const Backdrop = styled.div`

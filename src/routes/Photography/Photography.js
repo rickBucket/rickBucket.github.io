@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import Photo from './Photo.js';
+import GridPhoto from './GridPhoto.js';
+import EnlargedPhoto from './EnlargedPhoto.js';
 import photobase from './photobase.js';
 import schema from '../../schema.js';
 
@@ -9,7 +10,8 @@ const PageWrapper = schema.PageWrapper;
 
 const Photography = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [maxRowValue, setMaxRowValue] = useState(2);
+  const [maxRowValue, setMaxRowValue] = useState(3);
+  const [activePhoto, setActivePhoto] = useState();
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
@@ -30,13 +32,18 @@ const Photography = () => {
     handleResize();
   }
 
+  let handleSelectPhoto = (id) => {
+    setActivePhoto(id);
+  }
+
   let handleResize = () => {
     setWindowWidth(window.innerWidth);
-    if (window.innerWidth > 1200) setMaxRowValue(9);
-    else if (window.innerWidth > 900) setMaxRowValue(7);
-    else if (window.innerWidth > 600) setMaxRowValue(5);
+    if (window.innerWidth > 1280) setMaxRowValue(9);
+    else if (window.innerWidth > 960) setMaxRowValue(7);
+    else if (window.innerWidth > 640) setMaxRowValue(5);
     else setMaxRowValue(3);
   };
+
 
   /* Gets height and width of photos using the ids array
    * Calculates % width for best fit
@@ -105,14 +112,19 @@ const Photography = () => {
 
   return (
     <PageWrapper>
+      {activePhoto &&
+        <Overlay onClick={() => handleSelectPhoto()}>
+          <EnlargedPhoto id={activePhoto} />
+        </Overlay>
+      }
       <GalleryWrapper>
         {
           formattedPhotoCollection(photobase.ids.portraits).map((photo) => (
-            <Photo
+            <GridPhoto
               id={photo[0]}
               key={photo[0]}
               widthRatio={photo[1]}
-              rowLength={photo[2]}
+              handleSelectPhoto={handleSelectPhoto}
             />
           ))
         }
@@ -120,6 +132,18 @@ const Photography = () => {
     </PageWrapper>
   )
 }
+
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: auto;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+  backdrop-filter: blur(24px) brightness(25%);
+  -webkit-backdrop-filter: blur(24px) brightness(25%);
+`;
 
 const GalleryWrapper = styled.div`
   justify-content: space-between;
