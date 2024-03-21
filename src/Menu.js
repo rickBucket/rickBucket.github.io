@@ -22,7 +22,7 @@ const Menu = ({ visibility, setVisibility }) => {
 const MenuWrapper = styled.div`
   width: 192px;
   position: fixed;
-  top: 56px;
+  top: ${schema.navBarHeight}px;
   right: 0;
   padding: 8px 0;
   color: white;

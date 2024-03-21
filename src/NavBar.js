@@ -32,7 +32,7 @@ const NavBarWrapper = styled.div`
   align-items: center;
   justify-content: center;
   position: fixed;
-  height: 56px;
+  height: ${schema.navBarHeight}px;
   width: 100%;
   min-width: 320px;
   background: rgba(22,22,23,0.8);
@@ -46,8 +46,8 @@ const MenuButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 56px;
-  width: 56px;
+  height: ${schema.navBarHeight}px;
+  width: ${schema.navBarHeight}px;
   padding: auto;
   margin: 0px;
   background: transparent;
