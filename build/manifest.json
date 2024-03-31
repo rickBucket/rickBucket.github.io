@@ -21,6 +21,21 @@
       "src": "profile.jpg",
       "type": "image/jpg",
       "sizes": "256x256"
+    },
+    {
+      "src": "UCSD.png",
+      "type": "image/png",
+      "sizes": "1200x1200"
+    },
+    {
+      "src": "HackReactor.png",
+      "type": "image/png",
+      "sizes": "700x210"
+    },
+    {
+      "src": "ZOOM.png",
+      "type": "image/png",
+      "sizes": "605x575"
     }
   ],
   "start_url": ".",
