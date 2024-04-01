@@ -9,7 +9,7 @@ import {
 import NavBar from './NavBar.js';
 import Menu from './Menu.js';
 import Photography from './routes/Photography/Photography.js';
-import AboutMe from './routes/AboutMe/AboutMe.js';
+import HomePage from './routes/HomePage/HomePage.js';
 import schema from './schema.js';
 import './App.css';
 
@@ -35,7 +35,7 @@ const App = () => {
         <Route exact path="/" element={<Photography />} />
         <Route path="/index.html" element={<Photography />} />
         <Route path="/photography" element={<Photography />} />
-        <Route path="/aboutme" element={<AboutMe />} />
+        <Route path="/home" element={<HomePage />} />
       </Routes>
     </HashRouter>
   );

@@ -38,10 +38,15 @@ const Photography = () => {
 
   let handleResize = () => {
     setWindowWidth(window.innerWidth);
-    if (window.innerWidth > 1280) setMaxRowValue(9);
-    else if (window.innerWidth > 960) setMaxRowValue(7);
-    else if (window.innerWidth > 640) setMaxRowValue(5);
-    else setMaxRowValue(3);
+    if (window.innerWidth > schema.tertiary_breakpoint) {
+      setMaxRowValue(9);
+    } else if (window.innerWidth > schema.secondary_breakpoint) {
+      setMaxRowValue(7);
+    } else if (window.innerWidth > schema.primary_breakpoint) {
+      setMaxRowValue(5);
+    } else {
+      setMaxRowValue(3);
+    }
   };
 
 
