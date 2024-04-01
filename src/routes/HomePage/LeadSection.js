@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import schema from '../../schema.js';
-
+// import schema from '../../schema.js';
+import text from '../../text.js';
 
 const LeadSection = () => {
 
@@ -13,30 +13,33 @@ const LeadSection = () => {
             { "Software Development Engineer" }
           </LeadTitle>
           <LeadText>
-            { schema.lorem_ipsum }
+            { text.lorem_ipsum }
           </LeadText>
         </LeadTextContainer>
         <TempImg>
-          { "Image here"}
+          { "" }
         </TempImg>
       </LeadContainer>
   )
 }
 
 const LeadContainer = styled.div`
-  background: lightgrey;
-  border: 1px solid blue;
+  background: #FEFEFD;
   display: flex;
+  padding-bottom: 32px;
   @media (max-width: 720px) {
     display: block;
   }
 `;
 
 const LeadTextContainer = styled.div`
-  background: navy;
-  width: 45%;
+  width: 40%;
   max-width: 640px;
-  margin: 20px 5%;
+  margin: 20px 10%;
+  @media (max-width: 1280px) {
+    width: 45%;
+    margin: 20px 5%;
+  }
   @media (max-width: 720px) {
     width: 90%;
     min-width: 272px;
@@ -44,11 +47,9 @@ const LeadTextContainer = styled.div`
 `;
 
 const LeadTitle = styled.div`
-  background: grey;
-  border: 1px solid red;
+  margin-top: 10%;
   font-size: 34px;
   text-align: center;
-  margin-top: 10%;
   @media (max-width: 1280px) {
     font-size: 32px;
   }
@@ -56,14 +57,12 @@ const LeadTitle = styled.div`
     font-size: 28px;
   }
   @media (max-width: 720px) {
-    font-size: 24px;
     margin-top: 5%;
+    font-size: 24px;
   }
 `;
 
 const LeadText = styled.div`
-  background: cyan;
-  border: 1px solid red;
   padding: 5px 20px;
   @media (max-width: 720px) {
     padding: 5px 10px;
@@ -71,13 +70,16 @@ const LeadText = styled.div`
 `;
 
 const TempImg = styled.div`
-  background: green;
-  border: 1px solid red;
-  width: 40%;
   height: 500px;
+  width: 32%;
   margin: 32px auto;
+  border: 1px solid grey;
+  border-radius: 8px;
+  @media (max-width: 1280px) {
+    width: 36%;
+  }
   @media (max-width: 720px) {
-    width: 90%;
+    width: 80%;
     margin: 8px auto;
   }
 `
