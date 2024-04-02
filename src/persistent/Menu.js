@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import schema from './schema.js';
+import schema from '../schema.js';
 
 const Menu = ({ visibility, setVisibility }) => {
 

@@ -6,10 +6,13 @@ import {
   Route,
 } from 'react-router-dom';
 
-import NavBar from './NavBar.js';
-import Menu from './Menu.js';
-import Photography from './routes/Photography/Photography.js';
+
+import Footer from './persistent/Footer.js';
+import NavBar from './persistent/NavBar.js';
+import Menu from './persistent/Menu.js';
 import HomePage from './routes/HomePage/HomePage.js';
+import Photography from './routes/Photography/Photography.js';
+
 import schema from './schema.js';
 import './App.css';
 
@@ -37,6 +40,7 @@ const App = () => {
         <Route path="/photography" element={<Photography />} />
         <Route path="/home" element={<HomePage />} />
       </Routes>
+      <Footer />
     </HashRouter>
   );
 }

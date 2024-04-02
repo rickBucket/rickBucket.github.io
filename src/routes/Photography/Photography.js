@@ -38,11 +38,11 @@ const Photography = () => {
 
   let handleResize = () => {
     setWindowWidth(window.innerWidth);
-    if (window.innerWidth > schema.tertiary_breakpoint) {
+    if (window.innerWidth > 1280) {
       setMaxRowValue(9);
-    } else if (window.innerWidth > schema.secondary_breakpoint) {
+    } else if (window.innerWidth > 960) {
       setMaxRowValue(7);
-    } else if (window.innerWidth > schema.primary_breakpoint) {
+    } else if (window.innerWidth > 640) {
       setMaxRowValue(5);
     } else {
       setMaxRowValue(3);
@@ -97,7 +97,9 @@ const Photography = () => {
    */
   let calculateRowDimensions = (photos) => {
     const totalMargins = 2 * schema.photo_margin * photos.length;
-    const containerWidth = 0.9 * windowWidth;
+    const containerWidth = windowWidth > 640
+      ? 0.9 * windowWidth
+      : windowWidth - (6 * schema.photo_margin);
     let result = [];
     let aspectSum = 0;
 
@@ -157,6 +159,9 @@ const GalleryWrapper = styled.div`
   margin: auto;
   padding: auto;
   transition: width 0.2s ease;
+  @media (max-width: 640px) {
+    width: calc(100vw - ${6 * schema.photo_margin}px);
+  }
 `;
 
 export default Photography;
