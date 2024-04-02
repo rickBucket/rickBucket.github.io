@@ -16,15 +16,15 @@ const EnlargedPhoto = ({ id }) => {
 
 
 const Image = styled.img`
+  display: block;
   position: absolute;
   top: calc(50% + ${schema.navBarHeight/2}px);
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
-  max-height: 90%;
-  max-width: 90%;
   height: auto;
   width: auto;
-  display: block;
+  max-height: 90%;
+  max-width: 90%;
 `;
 
 export default EnlargedPhoto;

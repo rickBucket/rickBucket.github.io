@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import schema from './schema.js';
+import text from './text.js';
 
 const NavBar = ({ hideMenu, toggleMenu }) => {
   const [scrollPos, setScrollPos] = useState(0);
@@ -20,7 +21,7 @@ const NavBar = ({ hideMenu, toggleMenu }) => {
   return (
     <NavBarWrapper onClick={handleClick}>
       <ProfilePic $size={48} src="./profile.jpg" alt="Profile pic of me"/>
-      <Title>{ schema.fullName }</Title>
+      <Title>{ text.fullName }</Title>
       <MenuButton onClick={(e) => toggleMenu(e.stopPropagation())}><MenuIcon /></MenuButton>
     </NavBarWrapper>
   )
