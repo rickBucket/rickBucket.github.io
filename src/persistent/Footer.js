@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { HashLink } from 'react-router-hash-link';
 
-// import schema from '../schema.js';
+import schema from '../schema.js';
 import text from '../text.js';
 
+const { hashLinkScroll } = schema;
 const { footer_sections, trademark } = text;
 
 const Footer = () => {
@@ -17,7 +19,11 @@ const Footer = () => {
             {
               section.items.map((item) => (
                 item.href
-                ? <FooterLink key={item.name} href={item.href}>{ item.name }</FooterLink>
+                ? <FooterLink
+                    key={item.name}
+                    to={item.href}
+                    scroll={hashLinkScroll}
+                  >{ item.name }</FooterLink>
                 : <FooterItem key={item.name}>{ item.name }</FooterItem>
               ))
             }
@@ -65,7 +71,7 @@ const FooterItem = styled.p`
   font-size: 14px;
 `;
 
-const FooterLink = styled.a`
+const FooterLink = styled(HashLink)`
   display: block;
   margin: 14px auto;
   color: white;

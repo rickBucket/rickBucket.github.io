@@ -4,8 +4,10 @@ import styled from 'styled-components';
 import schema from '../../schema.js';
 import photobase from './photobase.js';
 
-const GridPhoto = ({ id, widthRatio, handleSelectPhoto }) => {
+const { photo_margin } = schema;
 
+
+const GridPhoto = ({ id, widthRatio, handleSelectPhoto }) => {
   return (
     <ImageContainer
       $ratio={widthRatio}
@@ -27,17 +29,22 @@ const ImageContainer = styled.div.attrs(
   })
 )`
   display: inline-block;
-  margin: ${schema.photo_margin/2}px ${schema.photo_margin}px;
-  height: auto;
+  margin: ${photo_margin/4}px ${photo_margin}px;
   transition: width 0.2s ease;
-  border-radius: ${schema.photo_margin}px;
+  border-radius: ${photo_margin}px;
+  user-select: none;
+  cursor: pointer;
+  &:hover img {
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0, 80%));
+  }
 `;
 
 
 const Image = styled.img`
   height: 100%;
   width: 100%;
-  border-radius: ${schema.photo_margin}px;
+  border-radius: ${photo_margin}px;
+  user-select: none;
 `;
 
 export default GridPhoto;

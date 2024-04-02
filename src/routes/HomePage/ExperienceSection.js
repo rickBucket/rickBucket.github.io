@@ -1,17 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
+import { HashLink } from 'react-router-hash-link';
 
-// import schema from '../../schema.js';
+import schema from '../../schema.js';
 import text from '../../text.js';
 
+const { hashLinkScroll } = schema;
+const { academic_experience, work_experience } = text;
+
 const ExperienceSection = () => {
-  const experiences = [...text.academic_experience, ...text.work_experience];
+  const experiences = [...academic_experience, ...work_experience];
 
   return (
     <ExpContainer>
       {
         experiences.map((exp) => (
-          <Experience key={exp.name}>
+          <Experience
+            key={exp.name}
+            to="#top"
+            scroll={hashLinkScroll}
+          >
             <LogoWrapper>
               <LogoImg src={exp.logo_src} alt={exp.name + "logo"} />
             </LogoWrapper>
@@ -29,24 +37,37 @@ const ExpContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
   padding: 64px 2%;
-  background: lightgrey;
-  background: linear-gradient(150deg, #28ffdc, #2d8cff);
+  background: #2d8cff;
+  background: linear-gradient(
+    150deg,
+    hsl(172, 75%, 55%),
+    hsl(212, 75%, 55%)
+  );
   @media (max-width: 720px) {
     display: block;
     padding: 20px 8%;
   }
 `;
 
-const Experience = styled.div`
+const Experience = styled(HashLink)`
   display: flex;
   flex-direction: column;
   width: calc(25% + 32px);
   height: 220px;
   min-width: 180px;
   padding-bottom: 4px;
+  color: black;
+  text-decoration: unset;
   border-radius: 8px;
   background: #FBFBFA;
+  user-select: none;
   filter: drop-shadow(4px 4px 4px rgba(0,0,0, 50%));
+  &:hover {
+    filter: drop-shadow(5px 5px 5px rgba(0,0,0, 55%));
+  }
+  &:active {
+    filter: none;
+  }
   @media (max-width: 1280px) {
     height: 244px;
   }
