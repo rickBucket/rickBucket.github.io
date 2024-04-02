@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import text from '../../text.js';
 
 const ExperienceSection = () => {
-
   const experiences = [...text.academic_experience, ...text.work_experience];
 
   return (

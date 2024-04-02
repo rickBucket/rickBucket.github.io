@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import MenuIcon from '@mui/icons-material/Menu';
 
-import schema from './schema.js';
-import text from './text.js';
+import schema from '../schema.js';
+import text from '../text.js';
 
 const NavBar = ({ hideMenu, toggleMenu }) => {
   const [scrollPos, setScrollPos] = useState(0);
