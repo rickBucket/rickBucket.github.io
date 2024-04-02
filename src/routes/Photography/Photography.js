@@ -152,16 +152,11 @@ const Overlay = styled.div`
 
 const GalleryWrapper = styled.div`
   justify-content: space-between;
-  width: 90vw;
   overflow: auto;
+  width: 90vw;
   margin: auto;
   padding: auto;
-  // border: solid;
   transition: width 0.2s ease;
-  // @media (max-width: 600px) {
-  //   width: 100vw;
-  //   margin: 0px;
-  // }
 `;
 
 export default Photography;

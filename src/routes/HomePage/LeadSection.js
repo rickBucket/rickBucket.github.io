@@ -10,7 +10,7 @@ const LeadSection = () => {
       <LeadContainer>
         <LeadTextContainer>
           <LeadTitle>
-            { "Software Development Engineer" }
+            { text.title }
           </LeadTitle>
           <LeadText>
             { text.lorem_ipsum }
