@@ -1,24 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// import schema from '../../schema.js';
+import schema from '../../schema.js';
 import text from '../../text.js';
 
-const LeadSection = () => {
+const { navBarHeight } = schema;
+const { title, lorem_ipsum } = text;
 
+const LeadSection = () => {
   return (
       <LeadContainer>
         <LeadTextContainer>
-          <LeadTitle>
-            { text.title }
-          </LeadTitle>
-          <LeadText>
-            { text.lorem_ipsum }
-          </LeadText>
+          <LeadTitle>{ title }</LeadTitle>
+          <LeadText>{ lorem_ipsum }</LeadText>
         </LeadTextContainer>
-        <TempImg>
-          { "" }
-        </TempImg>
+        <TempImg>{ "" }</TempImg>
       </LeadContainer>
   )
 }
@@ -26,7 +22,10 @@ const LeadSection = () => {
 const LeadContainer = styled.div`
   background: #FEFEFD;
   display: flex;
-  padding-bottom: 32px;
+  padding:
+    ${1.5 * navBarHeight}px
+    0px
+    ${navBarHeight}px;
   @media (max-width: 720px) {
     display: block;
   }

@@ -23,9 +23,9 @@ const footer_sections = [
   {
     title: "Company",
     items: [
-      { name: "About Me", href: "#/home" },
+      { name: "About Me", href: "/home#top" },
       { name: "Contact Me", href: "" },
-      { name: "Photography", href: "#/photography" },
+      { name: "Photography", href: "/photography#top" },
       { name: "Careers", href: "" },
     ],
   }, {

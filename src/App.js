@@ -34,6 +34,7 @@ const App = () => {
         visibility={menuActive}
         setVisibility={(val) => setMenuActive(val)}
       />
+      <div id="top"></div>
       <Routes>
         <Route exact path="/" element={<Photography />} />
         <Route path="/index.html" element={<Photography />} />

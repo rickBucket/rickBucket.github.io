@@ -6,7 +6,7 @@ import EnlargedPhoto from './EnlargedPhoto.js';
 import photobase from './photobase.js';
 import schema from '../../schema.js';
 
-const PageWrapper = schema.PageWrapper;
+const { navBarHeight, PageWrapper, photo_margin } = schema;
 
 const Photography = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -96,10 +96,10 @@ const Photography = () => {
    * @return: Array<Array[id, widthRatio]>
    */
   let calculateRowDimensions = (photos) => {
-    const totalMargins = 2 * schema.photo_margin * photos.length;
+    const totalMargins = 2 * photo_margin * photos.length;
     const containerWidth = windowWidth > 640
       ? 0.9 * windowWidth
-      : windowWidth - (6 * schema.photo_margin);
+      : windowWidth - (6 * photo_margin);
     let result = [];
     let aspectSum = 0;
 
@@ -157,10 +157,11 @@ const GalleryWrapper = styled.div`
   overflow: auto;
   width: 90vw;
   margin: auto;
-  padding: auto;
+  padding-top: ${2 * navBarHeight}px;
+  overflow: visible;
   transition: width 0.2s ease;
   @media (max-width: 640px) {
-    width: calc(100vw - ${6 * schema.photo_margin}px);
+    width: calc(100vw - ${6 * photo_margin}px);
   }
 `;
 

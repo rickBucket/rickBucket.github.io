@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import { HashLink } from 'react-router-hash-link';
 
 import schema from '../schema.js';
 
-const Menu = ({ visibility, setVisibility }) => {
+const { hashLinkScroll, navBarHeight } = schema;
 
+const Menu = ({ visibility, setVisibility }) => {
   const handleMenuItem = (item) => {
     window.location.href = window.location.origin + schema.menu[item];
     setVisibility(false);
@@ -13,7 +15,12 @@ const Menu = ({ visibility, setVisibility }) => {
   return (
     <MenuWrapper $vis={visibility}>
       {Object.keys(schema.menu).map((key) => (
-        <MenuItem key={key} onClick={() => handleMenuItem(key)}>{key}</MenuItem>
+        <MenuItem
+          key={key}
+          to={`/${key}#top`}
+          scroll={hashLinkScroll}
+          onClick={() => handleMenuItem(key)
+        }>{key}</MenuItem>
       ))}
     </MenuWrapper>
   );
@@ -22,9 +29,8 @@ const Menu = ({ visibility, setVisibility }) => {
 const MenuWrapper = styled.div`
   width: 192px;
   position: fixed;
-  top: ${schema.navBarHeight}px;
+  top: ${navBarHeight}px;
   right: 0;
-  padding: 8px 0;
   color: white;
   background: rgba(8,8,8,0.85);
   backdrop-filter: blur(32px);
@@ -33,14 +39,21 @@ const MenuWrapper = styled.div`
   z-index: 5;
 `;
 
-const MenuItem = styled.button`
+const MenuItem = styled(HashLink)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
   height: 40px;
   width: 192px;
   background: transparent;
   color: white;
   font-size: 14px;
-  border: none;
-  user-select: none;
+  text-decoration: unset;
+  // user-select: none;
+  &:hover {
+    backdrop-filter: brightness(200%);
+  }
 `;
 
 export default Menu;
