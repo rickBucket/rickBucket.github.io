@@ -18,13 +18,13 @@ const EnlargedPhoto = ({ id }) => {
 const Image = styled.img`
   display: block;
   position: absolute;
-  top: calc(50% + ${schema.navBarHeight/2}px);
+  top: calc(44% + ${schema.navBarHeight}px);
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
   height: auto;
   width: auto;
-  max-height: 90%;
-  max-width: 90%;
+  max-height: 84%;
+  max-width: 92%;
 `;
 
 export default EnlargedPhoto;
