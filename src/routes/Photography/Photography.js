@@ -162,6 +162,7 @@ const GalleryWrapper = styled.div`
   transition: width 0.2s ease;
   @media (max-width: 640px) {
     width: calc(100vw - ${6 * photo_margin}px);
+    padding-top: ${1.5 * navBarHeight}px;
   }
 `;
 
