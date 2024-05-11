@@ -29,6 +29,13 @@ const schema = {
     'Home': '/#/home',
     'Photography': '/#/photography',
   },
+  photoCategories: [
+    'Portraits',
+    'Events',
+    'Pets',
+    'Wildlife',
+    'Miscellaneous'
+  ],
   'navBarHeight': 56,
   'photo_margin': 4,
   'primary_breakpoint': 640,

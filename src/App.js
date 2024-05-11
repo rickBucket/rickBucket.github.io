@@ -13,35 +13,56 @@ import Menu from './persistent/Menu.js';
 import HomePage from './routes/HomePage/HomePage.js';
 import Photography from './routes/Photography/Photography.js';
 
+import AppContext from './contexts/AppContext.js';
 import schema from './schema.js';
 import './App.css';
 
 const App = () => {
   const [menuActive, setMenuActive] = useState(false);
+  const [isPhotoMenuOpen, setIsPhotoMenuOpen] = useState(false);
+
+  const hideMenus = () => {
+    setMenuActive(false);
+    setIsPhotoMenuOpen(false);
+  }
+
+  const toggleMenu = () => {
+    setMenuActive(!menuActive);
+    setIsPhotoMenuOpen(false);
+  }
+
+  const setMenuVisibility = (val) => {
+    setMenuActive(val);
+    setIsPhotoMenuOpen(false);
+  }
 
   return (
     <HashRouter>
       <schema.GlobalStyle />
-      {menuActive &&
-        <Overlay onClick={() => setMenuActive(false)} />
-      }
-      <Backdrop />
-      <NavBar
-        hideMenu={() => setMenuActive(false)}
-        toggleMenu={() => setMenuActive(!menuActive)}
-      />
-      <Menu
-        visibility={menuActive}
-        setVisibility={(val) => setMenuActive(val)}
-      />
-      <div id="top"></div>
-      <Routes>
-        <Route exact path="/" element={<Photography />} />
-        <Route path="/index.html" element={<Photography />} />
-        <Route path="/photography" element={<Photography />} />
-        <Route path="/home" element={<HomePage />} />
-      </Routes>
-      <Footer />
+      <AppContext.Provider
+        value={{ isPhotoMenuOpen, setIsPhotoMenuOpen }}
+      >
+        {(menuActive || isPhotoMenuOpen) &&
+          <Overlay onClick={hideMenus} />
+        }
+        <Backdrop />
+        <NavBar
+          hideMenu={hideMenus}
+          toggleMenu={toggleMenu}
+        />
+        <Menu
+          visibility={menuActive}
+          setVisibility={(val) => setMenuVisibility(val)}
+        />
+        <div id="top"></div>
+        <Routes>
+          <Route exact path="/" element={<Photography />} />
+          <Route path="/index.html" element={<Photography />} />
+          <Route path="/photography" element={<Photography />} />
+          <Route path="/home" element={<HomePage />} />
+        </Routes>
+        <Footer />
+      </AppContext.Provider>
     </HashRouter>
   );
 }
@@ -50,7 +71,7 @@ const Overlay = styled.div`
   position: fixed;
   height: 100%;
   width: 100%;
-  z-index: 3;
+  z-index: 1;
 `;
 
 const Backdrop = styled.div`
