@@ -16,6 +16,7 @@ const GridPhoto = ({ id, widthRatio, handleSelectPhoto }) => {
         src={photobase[id].img_src}
         $ratio={widthRatio}
         alt={id}
+        loading="lazy"
       />
     </ImageContainer>
   );

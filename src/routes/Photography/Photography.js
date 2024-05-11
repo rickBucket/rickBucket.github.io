@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
+import GalleryMenu from './GalleryMenu.js'
 import GridPhoto from './GridPhoto.js';
 import EnlargedPhoto from './EnlargedPhoto.js';
 import photobase from './photobase.js';
@@ -12,6 +13,21 @@ const Photography = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [maxRowValue, setMaxRowValue] = useState(3);
   const [activePhoto, setActivePhoto] = useState();
+  const [activeCategory, setActiveCategory] = useState('Portraits');
+  const [photoIDs, setPhotoIDs] = useState(photobase.ids['Portraits']);
+
+  useEffect(() => {
+    if (activeCategory === 'All') {
+      setPhotoIDs([
+        ...schema.photoCategories
+          .map((category) => photobase.ids[category])
+          .flat()
+          .sort((a, b) => Math.random() - 0.5)
+      ]);
+    } else {
+      setPhotoIDs(photobase.ids[activeCategory]);
+    }
+  }, [activeCategory]);
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
@@ -55,6 +71,7 @@ const Photography = () => {
    * Row Weights:
    *    [Horizontal / Lanscape] = 2
    *    [Vertical / Portraits] = 1
+   *    Square = 2
    *    Maximum row weight = MAX_ROW_VALUE
    * @return: Array<Array[id, widthRatio]>
    */
@@ -65,7 +82,7 @@ const Photography = () => {
     ids.forEach((id) => {
       const height = photobase[id].height;
       const width = photobase[id].width;
-      const counterIncrement = width > height ? 2 : 1;
+      const counterIncrement = width >= height ? 2 : 1;
       if (counter + counterIncrement > maxRowValue) {
         finalArray = [
           ...finalArray,
@@ -125,8 +142,12 @@ const Photography = () => {
         </Overlay>
       }
       <GalleryWrapper>
+        <GalleryMenu
+          activeCategory={activeCategory}
+          setActiveCategory={setActiveCategory}
+        />
         {
-          formattedPhotoCollection(photobase.ids.portraits).map((photo) => (
+          formattedPhotoCollection(photoIDs).map((photo) => (
             <GridPhoto
               id={photo[0]}
               key={photo[0]}
@@ -162,7 +183,7 @@ const GalleryWrapper = styled.div`
   transition: width 0.2s ease;
   @media (max-width: 640px) {
     width: calc(100vw - ${6 * photo_margin}px);
-    padding-top: ${1.5 * navBarHeight}px;
+    padding-top: ${1.4 * navBarHeight}px;
   }
 `;
 

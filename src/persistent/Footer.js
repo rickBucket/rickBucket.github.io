@@ -42,7 +42,7 @@ const FooterWrapper = styled.div`
   bottom: 0px;
   height: 100%;
   margin-top: 32px;
-  padding: 20px 8%;
+  padding: 20px 6%;
   color: white;
   background: rgba(36,36,36);
 `;
