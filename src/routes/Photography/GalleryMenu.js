@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import LoopIcon from '@mui/icons-material/Loop';
+import Slider from '@mui/material/Slider';
 
 import schema from '../../schema.js';
 import AppContext from '../../contexts/AppContext.js';
@@ -8,12 +9,23 @@ import AppContext from '../../contexts/AppContext.js';
 // const categories = ['All', ...schema.photoCategories];
 const categories = [... schema.photoCategories];
 
-const GalleryMenu = ({ activeCategory, setActiveCategory, handleShuffleIDs }) => {
+const GalleryMenu = ({
+  activeCategory,
+  setActiveCategory,
+  handleShuffleIDs,
+  maxRowValue,
+  setMaxRowValue,
+  handleResize,
+}) => {
 
   const { isPhotoMenuOpen, setIsPhotoMenuOpen } = useContext(AppContext);
 
   const toggleCategoryMenu = () => {
     setIsPhotoMenuOpen(!isPhotoMenuOpen);
+  }
+
+  const handleSliderChange = (event, newValue) => {
+    setMaxRowValue(newValue);
   }
 
   const handleSelectCategory = (input) => {
@@ -23,66 +35,105 @@ const GalleryMenu = ({ activeCategory, setActiveCategory, handleShuffleIDs }) =>
 
   return (
     <Wrapper>
-      <SelectTitle>{ "Select Category: " }</SelectTitle>
-      <SelectWrapper>
-        <Select
-          onClick={toggleCategoryMenu}
-          $menuOpen={isPhotoMenuOpen}
-        >
-          { activeCategory }
-        </Select>
-        { isPhotoMenuOpen &&
-          <ItemWrapper>
-          {
-            categories.map((category) => (
-              <SelectItem
-                key={category}
-                onClick={() => handleSelectCategory(category)}
-              >
-                { category }
-              </SelectItem>
-            ))
+      <MenuRow>
+        <RowTitle>{ "Row Density: " }</RowTitle>
+        <SliderWrapper>
+          <Slider
+            size="small"
+            aria-label="Gallery row density"
+            value={maxRowValue}
+            onChange={handleSliderChange}
+            shiftStep={1}
+            step={1}
+            marks
+            min={3}
+            max={11}
+          />
+        </SliderWrapper>
+        <ResetButton onClick={handleResize}>{ "Reset" }</ResetButton>
+      </MenuRow>
+      <MenuRow>
+        <RowTitle>{ "Select Category: " }</RowTitle>
+        <SelectWrapper>
+          <Select
+            onClick={toggleCategoryMenu}
+            aria-label="Select photo gallery category"
+            $menuOpen={isPhotoMenuOpen}
+          >
+            { activeCategory }
+          </Select>
+          { isPhotoMenuOpen &&
+            <ItemWrapper>
+            {
+              categories.map((category) => (
+                <SelectItem
+                  key={category}
+                  onClick={() => handleSelectCategory(category)}
+                >
+                  { category }
+                </SelectItem>
+              ))
+            }
+            </ItemWrapper>
           }
-          </ItemWrapper>
-        }
-      </SelectWrapper>
-      <ShuffleButton
-        onClick={handleShuffleIDs}
-        aria-label="Shuffle photo gallery"
-      >
-        <LoopIcon style={{ height: '20px'}} />
-      </ShuffleButton>
+        </SelectWrapper>
+        <ShuffleButton
+          onClick={handleShuffleIDs}
+          aria-label="Shuffle photo gallery"
+        >
+          <LoopIcon style={{ height: '20px'}} />
+        </ShuffleButton>
+      </MenuRow>
     </Wrapper>
   )
 }
 
-
 const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 4px;
+`;
+
+const MenuRow = styled.div`
   display: flex;
   justify-content: right;
   min-width: 270px;
-  margin-bottom: 8px;
-  padding: 2px 8px;
+  margin-bottom: 4px;
+  padding-right: 8px;
 `;
 
-const SelectTitle = styled.div`
+const RowTitle = styled.div`
   text-align: center;
   font-size: 12px;
-  width: 104px;
-  padding: 6px 0;
+  padding-right: 8px;
   margin: auto 0;
   cursor: default;
   user-select: none;
 `;
 
+const SliderWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 26px;
+  width: 138px;
+  padding-left: 4px;
+  padding-right: 12px;
+`;
+
 const SelectWrapper = styled.div`
   position: relative;
   font-size: 14px;
+  width: 128px;
+  margin: 0 4px;
 `;
 
 const Select = styled.button`
+  font-family: Arial;
+  font-size: 14px;
   height: 26px;
-  width: 120px;
+  width: 128px;
+  color: black;
   background: white;
   padding: 4px 10px 4px 0;
   border: 1px solid grey;
@@ -113,7 +164,7 @@ const ItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
   max-height: 400px;
-  width: 118px;
+  width: 126px;
   padding: 0;
   border: 1px solid grey;
   background: rgba(255,255,255, 0.7);
@@ -127,7 +178,6 @@ const ItemWrapper = styled.div`
 const SelectItem = styled.div`
   display: flex;
   align-items: center;
-  width: 100%;
   margin: 0;
   padding: 8px;
   color: #111;
@@ -139,11 +189,28 @@ const SelectItem = styled.div`
   }
 `;
 
+const ResetButton = styled.button`
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 26px;
+  width: 36px;
+  margin-left: 8px;
+  padding: 4px;
+  color: #222;
+  background: white;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+`;
+
 const ShuffleButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
   height: 26px;
+  width: 36px;
   margin-left: 8px;
   padding: 4px;
   color: #444;

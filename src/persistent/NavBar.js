@@ -38,6 +38,7 @@ const NavBarWrapper = styled.div`
   align-items: center;
   justify-content: center;
   position: fixed;
+  top: -2px;
   height: ${navBarHeight}px;
   width: 100%;
   min-width: 320px;
