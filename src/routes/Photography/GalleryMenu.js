@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
+import LoopIcon from '@mui/icons-material/Loop';
 
 import schema from '../../schema.js';
 import AppContext from '../../contexts/AppContext.js';
 
-const categories = ['All', ...schema.photoCategories];
+// const categories = ['All', ...schema.photoCategories];
+const categories = [... schema.photoCategories];
 
-const GalleryMenu = ({ activeCategory, setActiveCategory }) => {
+const GalleryMenu = ({ activeCategory, setActiveCategory, handleShuffleIDs }) => {
 
   const { isPhotoMenuOpen, setIsPhotoMenuOpen } = useContext(AppContext);
 
@@ -44,6 +46,9 @@ const GalleryMenu = ({ activeCategory, setActiveCategory }) => {
           </ItemWrapper>
         }
       </SelectWrapper>
+      <ShuffleButton onClick={handleShuffleIDs}>
+        <LoopIcon />
+      </ShuffleButton>
     </Wrapper>
   )
 }
@@ -52,7 +57,7 @@ const GalleryMenu = ({ activeCategory, setActiveCategory }) => {
 const Wrapper = styled.div`
   display: flex;
   justify-content: right;
-  min-width: 200px;
+  min-width: 270px;
   margin-bottom: 8px;
   padding: 2px 8px;
 `;
@@ -64,6 +69,7 @@ const SelectTitle = styled.div`
   padding: 6px 0;
   margin: auto 0;
   cursor: default;
+  user-select: none;
 `;
 
 const SelectWrapper = styled.div`
@@ -101,8 +107,8 @@ const ItemWrapper = styled.div`
   padding: 0;
   border: 1px solid grey;
   background: rgba(255,255,255, 0.7);
-  backdrop-filter: blur(18px) saturate(250%);
-  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(14px) saturate(250%);
+  -webkit-backdrop-filter: blur(14px) saturate(250%);
   overflow: scroll;
   z-index: 1;
   border-radius: 0 0 8px 8px ;
@@ -113,15 +119,35 @@ const SelectItem = styled.div`
   align-items: center;
   width: 100%;
   margin: 0;
-  padding: 8px 8px;
+  padding: 8px;
   color: #111;
   cursor: pointer;
   user-select: none;
   &:hover, :focus, :focus:hover {
     background: transparent;
-    backdrop-filter: saturate(40%);
+    backdrop-filter: saturate(50%);
   }
 `;
 
+const ShuffleButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 26px;
+  margin-left: 8px;
+  padding: 4px;
+  // scale: 0.9;
+  color: #444;
+  background: white;
+  border: 1px solid grey;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    background: #EEE;
+  }
+  &:active {
+    background: #DDD;
+  }
+`;
 
 export default GalleryMenu;

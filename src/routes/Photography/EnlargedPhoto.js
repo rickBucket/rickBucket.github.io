@@ -11,6 +11,7 @@ const EnlargedPhoto = ({ id }) => {
     <Image
       src={photobase[id].img_src}
       alt={id}
+      draggable={false}
     />
   );
 };

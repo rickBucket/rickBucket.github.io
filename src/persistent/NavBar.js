@@ -25,7 +25,9 @@ const NavBar = ({ hideMenu, toggleMenu }) => {
     <NavBarWrapper onClick={handleClick}>
       <ProfilePic $size={48} src="./profile.jpg" alt="Profile pic of me"/>
       <Title>{ fullName }</Title>
-      <MenuButton onClick={(e) => toggleMenu(e.stopPropagation())}><MenuIcon /></MenuButton>
+      <MenuButton onClick={(e) => toggleMenu(e.stopPropagation())}>
+        <MenuIcon />
+      </MenuButton>
     </NavBarWrapper>
   )
 };
