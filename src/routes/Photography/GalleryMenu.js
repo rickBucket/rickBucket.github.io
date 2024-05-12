@@ -46,8 +46,11 @@ const GalleryMenu = ({ activeCategory, setActiveCategory, handleShuffleIDs }) =>
           </ItemWrapper>
         }
       </SelectWrapper>
-      <ShuffleButton onClick={handleShuffleIDs}>
-        <LoopIcon />
+      <ShuffleButton
+        onClick={handleShuffleIDs}
+        aria-label="Shuffle photo gallery"
+      >
+        <LoopIcon style={{ height: '20px'}} />
       </ShuffleButton>
     </Wrapper>
   )
@@ -77,15 +80,22 @@ const SelectWrapper = styled.div`
   font-size: 14px;
 `;
 
-const Select = styled.div`
+const Select = styled.button`
+  height: 26px;
   width: 120px;
   background: white;
-  padding: 4px 0 4px 8px;
+  padding: 4px 10px 4px 0;
   border: 1px solid grey;
   border-radius: ${props => props.$menuOpen ? '4px 4px 0 0' : '4px'};
   user-select: none;
   cursor: pointer;
   z-index: 2;
+  &:hover {
+    background: ${schema.light_button_hover_bg};
+  }
+  &:active {
+    background: ${schema.light_button_active_bg};
+  }
   &:after {
     position: absolute;
     top: 4px;
@@ -103,7 +113,7 @@ const ItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
   max-height: 400px;
-  width: 128px;
+  width: 118px;
   padding: 0;
   border: 1px solid grey;
   background: rgba(255,255,255, 0.7);
@@ -136,17 +146,16 @@ const ShuffleButton = styled.button`
   height: 26px;
   margin-left: 8px;
   padding: 4px;
-  // scale: 0.9;
   color: #444;
   background: white;
   border: 1px solid grey;
   border-radius: 4px;
   cursor: pointer;
   &:hover {
-    background: #EEE;
+    background: ${schema.light_button_hover_bg};
   }
   &:active {
-    background: #DDD;
+    background: ${schema.light_button_active_bg};
   }
 `;
 
