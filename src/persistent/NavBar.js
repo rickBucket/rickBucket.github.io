@@ -25,7 +25,9 @@ const NavBar = ({ hideMenu, toggleMenu }) => {
     <NavBarWrapper onClick={handleClick}>
       <ProfilePic $size={48} src="./profile.jpg" alt="Profile pic of me"/>
       <Title>{ fullName }</Title>
-      <MenuButton onClick={(e) => toggleMenu(e.stopPropagation())}><MenuIcon /></MenuButton>
+      <MenuButton onClick={(e) => toggleMenu(e.stopPropagation())}>
+        <MenuIcon />
+      </MenuButton>
     </NavBarWrapper>
   )
 };
@@ -36,6 +38,7 @@ const NavBarWrapper = styled.div`
   align-items: center;
   justify-content: center;
   position: fixed;
+  top: -2px;
   height: ${navBarHeight}px;
   width: 100%;
   min-width: 320px;

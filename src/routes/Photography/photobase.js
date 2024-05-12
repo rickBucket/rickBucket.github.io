@@ -1,7 +1,7 @@
 
 const photobase = {
   'ids': {
-    Portraits: ['portraits1', 'portraits2', 'portraits3', 'portraits4', 'portraits5', 'portraits6', 'portraits7', 'portraits8', 'portraits9', 'portraits10', 'portraits11', 'portraits12', 'portraits13', 'portraits14', 'portraits15', 'portraits16', 'portraits17', 'portraits18', 'portraits19', 'portraits20', 'portraits21', 'portraits22', 'portraits23', 'portraits24', 'portraits25', 'portraits26', 'portraits27'],
+    Portraits: ['portraits1', 'portraits2', 'portraits3', 'portraits4', 'portraits5', 'portraits6', 'portraits7', 'portraits8', 'portraits9', 'portraits10', 'portraits11', 'portraits12', 'portraits13', 'portraits14', 'portraits15', 'portraits16', 'portraits17', 'portraits18', 'portraits19', /* 'portraits20', */ 'portraits21', 'portraits22', 'portraits23', 'portraits24', 'portraits25', 'portraits26', 'portraits27'],
     Events: ['event1', 'event2', 'event3', 'event4', 'event5', 'event6', 'event7', 'event8', 'event9', 'event10', 'event11', 'event12'],
     Pets: ['pets1', 'pets2', 'pets3', 'pets4', 'pets5', 'pets6', 'pets7', 'pets8', 'pets9', 'pets10', 'pets11', 'pets12', 'pets13', 'pets14'],
     Wildlife: ['wildlife1', 'wildlife2', 'wildlife3', 'wildlife4', 'wildlife5', 'wildlife6', 'wildlife7', 'wildlife8', 'wildlife9', 'wildlife10', 'wildlife11', 'wildlife12', 'wildlife13'],
@@ -327,11 +327,11 @@ const photobase = {
     height: 1536,
     width: 2048,
   },
-  'portraits20': {
-    img_src: "https://live.staticflickr.com/65535/53528404025_7a62e0aec5_k.jpg",
-    height: 2048,
-    width: 1365,
-  },
+  // 'portraits20': {
+  //   img_src: "https://live.staticflickr.com/65535/53528404025_7a62e0aec5_k.jpg",
+  //   height: 2048,
+  //   width: 1365,
+  // },
   'portraits21': {
     img_src: "https://live.staticflickr.com/65535/53528150723_de769aae8b_k.jpg",
     height: 1367,

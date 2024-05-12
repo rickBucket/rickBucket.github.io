@@ -22,7 +22,7 @@ const Photography = () => {
         ...schema.photoCategories
           .map((category) => photobase.ids[category])
           .flat()
-          .sort((a, b) => Math.random() - 0.5)
+          .sort(() => Math.random() - 0.5)
       ]);
     } else {
       setPhotoIDs(photobase.ids[activeCategory]);
@@ -40,6 +40,13 @@ const Photography = () => {
       screen.orientation.removeEventListener("change", handleOrientation);
     }
   }, []);
+
+  let handleShuffleIDs = () => {
+    setPhotoIDs([
+      ...photoIDs
+      .sort(() => Math.random() - 0.5)
+    ]);
+  };
 
   let handleOrientation = (prevWidth) => {
     if (prevWidth !== window.innerWidth) {
@@ -145,6 +152,10 @@ const Photography = () => {
         <GalleryMenu
           activeCategory={activeCategory}
           setActiveCategory={setActiveCategory}
+          handleShuffleIDs={handleShuffleIDs}
+          maxRowValue={maxRowValue}
+          setMaxRowValue={setMaxRowValue}
+          handleResize={handleResize}
         />
         {
           formattedPhotoCollection(photoIDs).map((photo) => (
@@ -178,12 +189,12 @@ const GalleryWrapper = styled.div`
   overflow: auto;
   width: 90vw;
   margin: auto;
-  padding-top: ${2 * navBarHeight}px;
+  padding-top: ${1.4 * navBarHeight}px;
   overflow: visible;
   transition: width 0.2s ease;
   @media (max-width: 640px) {
     width: calc(100vw - ${6 * photo_margin}px);
-    padding-top: ${1.4 * navBarHeight}px;
+    padding-top: ${1.2 * navBarHeight}px;
   }
 `;
 

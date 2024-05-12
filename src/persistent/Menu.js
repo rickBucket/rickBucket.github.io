@@ -50,7 +50,7 @@ const MenuItem = styled(HashLink)`
   color: white;
   font-size: 14px;
   text-decoration: unset;
-  // user-select: none;
+  user-select: none;
   &:hover {
     backdrop-filter: brightness(200%);
   }

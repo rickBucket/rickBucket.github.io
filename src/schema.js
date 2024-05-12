@@ -41,6 +41,8 @@ const schema = {
   'primary_breakpoint': 640,
   'secondary_breakpoint': 960,
   'tertiary_breakpoint': 1280,
+  'light_button_hover_bg': '#F4F4F4',
+  'light_button_active_bg': '#E4E4E4',
 };
 
 export default schema;

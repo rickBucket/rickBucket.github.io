@@ -8,6 +8,7 @@ const { photo_margin } = schema;
 
 
 const GridPhoto = ({ id, widthRatio, handleSelectPhoto }) => {
+
   return (
     <ImageContainer
       $ratio={widthRatio}
@@ -16,6 +17,7 @@ const GridPhoto = ({ id, widthRatio, handleSelectPhoto }) => {
         src={photobase[id].img_src}
         $ratio={widthRatio}
         alt={id}
+        draggable={false}
         loading="lazy"
       />
     </ImageContainer>
@@ -31,12 +33,14 @@ const ImageContainer = styled.div.attrs(
 )`
   display: inline-block;
   margin: ${photo_margin/4}px ${photo_margin}px;
-  transition: width 0.2s ease;
   border-radius: ${photo_margin}px;
   user-select: none;
   cursor: pointer;
   &:hover img {
     filter: drop-shadow(2px 2px 4px rgba(0,0,0, 80%));
+  }
+  &:active img {
+    filter: unset;
   }
 `;
 
