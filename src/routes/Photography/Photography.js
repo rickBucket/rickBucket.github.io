@@ -41,6 +41,18 @@ const Photography = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (windowWidth > 1280) {
+      setMaxRowValue(9);
+    } else if (windowWidth > 960) {
+      setMaxRowValue(7);
+    } else if (windowWidth > 640) {
+      setMaxRowValue(5);
+    } else {
+      setMaxRowValue(3);
+    }
+  }, [windowWidth]);
+
   let handleShuffleIDs = () => {
     setPhotoIDs([
       ...photoIDs
@@ -51,8 +63,8 @@ const Photography = () => {
   let handleOrientation = (prevWidth) => {
     if (prevWidth !== window.innerWidth) {
       setTimeout(handleOrientation, 400, window.innerWidth);
+      handleResize();
     }
-    handleResize();
   }
 
   let handleSelectPhoto = (id) => {
@@ -61,11 +73,14 @@ const Photography = () => {
 
   let handleResize = () => {
     setWindowWidth(window.innerWidth);
-    if (window.innerWidth > 1280) {
+  };
+
+  let resetResize = () => {
+    if (windowWidth > 1280) {
       setMaxRowValue(9);
-    } else if (window.innerWidth > 960) {
+    } else if (windowWidth > 960) {
       setMaxRowValue(7);
-    } else if (window.innerWidth > 640) {
+    } else if (windowWidth > 640) {
       setMaxRowValue(5);
     } else {
       setMaxRowValue(3);
@@ -80,21 +95,21 @@ const Photography = () => {
    *    [Vertical / Portraits] = 1
    *    Square = 2
    *    Maximum row weight = MAX_ROW_VALUE
-   * @return: Array<Array[id, widthRatio]>
+   * @return: Array<Array[id, ratioToContainerWidth]>
    */
   let formattedPhotoCollection = (ids) => {
     let finalArray = [];
+    let intermediaryArray = [];
     let tempArray = [];
     let counter = 0;
+
+    // Set intermediaryArray to hold the rows
     ids.forEach((id) => {
       const height = photobase[id].height;
       const width = photobase[id].width;
       const counterIncrement = width >= height ? 2 : 1;
       if (counter + counterIncrement > maxRowValue) {
-        finalArray = [
-          ...finalArray,
-          ...calculateRowDimensions(tempArray),
-        ];
+        intermediaryArray.push([...tempArray]);
         tempArray = [];
         counter = 0;
       }
@@ -102,22 +117,50 @@ const Photography = () => {
       counter += counterIncrement;
     });
 
-    if (tempArray.length > 0) {
-      finalArray = [
-        ...finalArray,
-        ...calculateRowDimensions(tempArray),
-      ];
+    // Handle final row being of an orphan or two
+    // For not-sparse grids (maxRowValue < 5) add orphan to above
+    // For denser grids (maxRowValu > 6) add a third to a dual orphan
+    if (tempArray.length > 2) {
+      intermediaryArray.push(tempArray);
+    } else if (tempArray.length === 1) {
+      if (maxRowValue < 5 && tempArray[0][1] > 1) {
+        intermediaryArray.push(tempArray);
+      } else {
+        insertStray(intermediaryArray, tempArray[0]);
+      }
+    } else if (maxRowValue > 6 && tempArray.length === 2) {
+      tempArray.unshift(
+        intermediaryArray[intermediaryArray.length - 1]
+          .pop()
+      );
+      intermediaryArray.push(tempArray);
     }
 
+    intermediaryArray.forEach((row) => {
+      finalArray.push(...calculateRowDimensions(row));
+    });
     return finalArray;
+  }
+
+  /* Helper function to insert stray orphan into grid rows
+   * @param:
+   *  array: Array<Array[id, width/height]>
+   *  stray:[id, width/height]
+   */
+  let insertStray = (array, stray) => {
+    let index = array.length - 1;
+    array[index].push(stray);
+    while (index > 0 && array[index][1] < 1) {
+      array[index - 1].push(array[index].shift());
+      index--;
+    }
   }
 
   /* Helper function to calculate the dimensions of photos in a row
    * Compensate for margins affecting different aspect ratios differently
    * @param:
    *    Array<Array[id, aspectRatio<width/height>]>
-   *    number: maxinum height of photos in array
-   * @return: Array<Array[id, widthRatio]>
+   * @return: Array<Array[id, ratioToContainerWidth]>
    */
   let calculateRowDimensions = (photos) => {
     const totalMargins = 2 * photo_margin * photos.length;
@@ -155,7 +198,7 @@ const Photography = () => {
           handleShuffleIDs={handleShuffleIDs}
           maxRowValue={maxRowValue}
           setMaxRowValue={setMaxRowValue}
-          handleResize={handleResize}
+          resetResize={resetResize}
         />
         {
           formattedPhotoCollection(photoIDs).map((photo) => (
