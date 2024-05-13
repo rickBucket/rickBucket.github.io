@@ -15,7 +15,7 @@ const GalleryMenu = ({
   handleShuffleIDs,
   maxRowValue,
   setMaxRowValue,
-  handleResize,
+  resetResize,
 }) => {
 
   const { isPhotoMenuOpen, setIsPhotoMenuOpen } = useContext(AppContext);
@@ -50,7 +50,7 @@ const GalleryMenu = ({
             max={11}
           />
         </SliderWrapper>
-        <ResetButton onClick={handleResize}>{ "Reset" }</ResetButton>
+        <ResetButton onClick={resetResize}>{ "Reset" }</ResetButton>
       </MenuRow>
       <MenuRow>
         <RowTitle>{ "Select Category: " }</RowTitle>
