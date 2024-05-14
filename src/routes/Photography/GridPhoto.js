@@ -12,10 +12,10 @@ const GridPhoto = ({ id, widthRatio, handleSelectPhoto }) => {
   return (
     <ImageContainer
       $ratio={widthRatio}
-      onClick={() => handleSelectPhoto(id)}>
+      onClick={() => handleSelectPhoto(id)}
+    >
       <Image
         src={photobase[id].img_src}
-        $ratio={widthRatio}
         alt={id}
         draggable={false}
         loading="lazy"
@@ -24,10 +24,11 @@ const GridPhoto = ({ id, widthRatio, handleSelectPhoto }) => {
   );
 }
 
+
 const ImageContainer = styled.div.attrs(
   ({ $ratio }) => ({
     style: {
-      width: `calc(${100 * $ratio}%)`,
+      width: `${100 * $ratio}%`,
     }
   })
 )`
@@ -36,14 +37,7 @@ const ImageContainer = styled.div.attrs(
   border-radius: ${photo_margin}px;
   user-select: none;
   cursor: pointer;
-  &:hover img {
-    filter: drop-shadow(2px 2px 4px rgba(0,0,0, 80%));
-  }
-  &:active img {
-    filter: unset;
-  }
 `;
-
 
 const Image = styled.img`
   height: 100%;

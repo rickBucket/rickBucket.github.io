@@ -44,10 +44,10 @@ const GalleryMenu = ({
             value={maxRowValue}
             onChange={handleSliderChange}
             shiftStep={1}
-            step={1}
+            step={window.innerWidth < schema.primary_breakpoint ? 1 : 2}
             marks
-            min={3}
-            max={11}
+            min={window.innerWidth < schema.primary_breakpoint ? 3 : 5}
+            max={window.innerWidth < schema.primary_breakpoint ? 7 : 11}
           />
         </SliderWrapper>
         <ResetButton onClick={resetResize}>{ "Reset" }</ResetButton>
