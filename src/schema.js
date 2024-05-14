@@ -34,10 +34,11 @@ const schema = {
     'Events',
     'Pets',
     'Wildlife',
-    'Miscellaneous'
+    'Miscellaneous',
   ],
   'navBarHeight': 56,
   'photo_margin': 4,
+  'photo_gallery_sides': 24,
   'primary_breakpoint': 640,
   'secondary_breakpoint': 960,
   'tertiary_breakpoint': 1280,

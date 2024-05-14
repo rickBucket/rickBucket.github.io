@@ -7,7 +7,7 @@ import EnlargedPhoto from './EnlargedPhoto.js';
 import photobase from './photobase.js';
 import schema from '../../schema.js';
 
-const { navBarHeight, PageWrapper, photo_margin } = schema;
+const { navBarHeight, PageWrapper, photo_margin, photo_gallery_sides } = schema;
 
 const Photography = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -38,7 +38,7 @@ const Photography = () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("orientationchange", handleOrientation);
       screen.orientation.removeEventListener("change", handleOrientation);
-    }
+    };
   }, []);
 
   useEffect(() => {
@@ -94,7 +94,7 @@ const Photography = () => {
    *    [Horizontal / Lanscape] = 2
    *    [Vertical / Portraits] = 1
    *    Square = 2
-   *    Maximum row weight = MAX_ROW_VALUE
+   *    Maximum row weight = maxRowValueif ()
    * @return: Array<Array[id, ratioToContainerWidth]>
    */
   let formattedPhotoCollection = (ids) => {
@@ -140,7 +140,7 @@ const Photography = () => {
       finalArray.push(...calculateRowDimensions(row));
     });
     return finalArray;
-  }
+  };
 
   /* Helper function to insert stray orphan into grid rows
    * @param:
@@ -154,7 +154,7 @@ const Photography = () => {
       array[index - 1].push(array[index].shift());
       index--;
     }
-  }
+  };
 
   /* Helper function to calculate the dimensions of photos in a row
    * Compensate for margins affecting different aspect ratios differently
@@ -162,25 +162,25 @@ const Photography = () => {
    *    Array<Array[id, aspectRatio<width/height>]>
    * @return: Array<Array[id, ratioToContainerWidth]>
    */
-  let calculateRowDimensions = (photos) => {
-    const totalMargins = 2 * photo_margin * photos.length;
+  let calculateRowDimensions = (row) => {
+    const totalMargins = 2 * photo_margin * row.length;
     const containerWidth = windowWidth > 640
       ? 0.9 * windowWidth
-      : windowWidth - (6 * photo_margin);
+      : windowWidth - photo_gallery_sides;
     let result = [];
     let aspectSum = 0;
 
-    photos.forEach((photo) => {
+    row.forEach((photo) => {
       aspectSum += photo[1];
     });
-    const height = (containerWidth - totalMargins)/aspectSum;
+    const rowHeight = (containerWidth - totalMargins)/aspectSum;
 
-    photos.forEach((photo) => {
+    row.forEach((photo) => {
       result.push([
         photo[0],
-        (height * photo[1]) / containerWidth,
+        rowHeight * photo[1] / containerWidth,
       ]);
-    })
+    });
     return result;
   };
 
@@ -229,14 +229,11 @@ const Overlay = styled.div`
 
 const GalleryWrapper = styled.div`
   justify-content: space-between;
-  overflow: auto;
   width: 90vw;
   margin: auto;
   padding-top: ${1.4 * navBarHeight}px;
-  overflow: visible;
-  transition: width 0.2s ease;
   @media (max-width: 640px) {
-    width: calc(100vw - ${6 * photo_margin}px);
+    width: calc(100vw - ${photo_gallery_sides}px);
     padding-top: ${1.2 * navBarHeight}px;
   }
 `;
